@@ -4,11 +4,12 @@ import paho.mqtt.client as paho
 from paho import mqtt
 import json
 
-db = sqlite3.connect("Website/HiHorizonTelemetry.db")
+db = sqlite3.connect("../../../../HiHorizonTelemetry.db")
 cur = db.cursor()
 
 def insertMapToDatabase(dataFrame):
     beginTime = time.time()
+
     #get all the current dataTypes from the database
     res = cur.execute("SELECT name, abbreviation FROM ReadStatisticTypes")
     typeRows = res.fetchall()
@@ -28,6 +29,9 @@ def insertMapToDatabase(dataFrame):
     #add UnixTime (PK) to the columns to update
     columnsToInsert.append("UnixTime")
     valuesToInsert.append(int(time.time()) + 7200) #adjusting for timezone
+
+    print(columnsToInsert)
+    print(valuesToInsert)
 
     #makes the specified length placeholders for the values, and a string containing the column_names
     columns = ""
@@ -64,8 +68,12 @@ def on_subscribe(client, userdata, mid, granted_qos, properties=None):
 # print message, useful for checking if it was successful
 def on_message(client, userdata, msg):
     if(msg.topic == "data"):
-        dataframe = json.loads(str(msg.payload.decode("UTF-8")))
-        insertMapToDatabase(dataframe)
+        try:
+            dataframe = json.loads(str(msg.payload.decode("UTF-8")))
+            insertMapToDatabase(dataframe)
+        except:
+            print("could not convert json string to dataframe, possibly a wrong format is used")
+        
 
 
 # using MQTT version 5 here, for 3.1.1: MQTTv311, 3.1: MQTTv31
