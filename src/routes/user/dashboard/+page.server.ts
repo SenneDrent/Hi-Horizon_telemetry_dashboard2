@@ -1,6 +1,9 @@
-// import { getMQTTClient } from '$lib/classes/MQTTBroker.js';
-import { sendMQTTmessageTest } from '$lib/server/mqttHandler.js';
-import { fetchUser, fetchLatestData } from '$lib/server/db/queries';
+import { fetchLatestData } from '$lib/server/queries/dashboard/dataFrame.js';
+import { fetchReadStatisticsTypes } from '$lib/server/queries/settings/ReadStatistics.js';
 
-export async function load({ params }) {
+export async function load({ params:any }) {
+    return {
+        dataFrame: fetchLatestData(),
+        dataFrameStructure: fetchReadStatisticsTypes()
+    }
 }

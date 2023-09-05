@@ -4,7 +4,7 @@ import paho.mqtt.client as paho
 from paho import mqtt
 import json
 
-db = sqlite3.connect("../../../../HiHorizonTelemetry.db")
+db = sqlite3.connect("HiHorizonTelemetry.db")
 cur = db.cursor()
 
 def insertMapToDatabase(dataFrame):
@@ -13,7 +13,7 @@ def insertMapToDatabase(dataFrame):
     #get all the current dataTypes from the database
     res = cur.execute("SELECT name, abbreviation FROM ReadStatisticTypes")
     typeRows = res.fetchall()
-
+    
     valuesToInsert = []
     columnsToInsert = []
 

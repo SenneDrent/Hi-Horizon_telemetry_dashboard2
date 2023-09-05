@@ -1,5 +1,3 @@
-// import { getMQTTClient } from "$lib/classes/MQTTBroker.js"
-import { fetchUser } from "./db/queries";
 import * as mqtt from "mqtt";
 
 export function sendMQTTmessageTest(settings:object) {

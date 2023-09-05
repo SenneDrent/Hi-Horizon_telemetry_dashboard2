@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { ReadStatisticType } from "$lib/classes/ReadStatisticType";
-    import { SettingsLocalChange } from "$lib/classes/SettingsLocalChange";
+    import type { ReadStatisticType } from "$lib/interfaces/ReadStatisticType";
+    import type { SettingsLocalChange } from "$lib/interfaces/SettingsLocalChange";
 
     export let readStatisticTypes: any = [];
-    let readStatisticTypesLocalChangeLog: SettingsLocalChange[] = [];
+    export let readStatisticTypesLocalChangeLog: SettingsLocalChange[] = [];
 
     let wantsToAdd: boolean = false;
     let addName:string = "";
@@ -12,11 +12,12 @@
     let addUnit:string = "";
 
     function addReadStatisticType() {
-        let newReadStatistic: ReadStatisticType = new ReadStatisticType(addName,addAbbreviation,addQuantity,addUnit);
-        let newLocalChange: SettingsLocalChange = new SettingsLocalChange("Add","ReadStatisticType",newReadStatistic);
+        let newReadStatistic: ReadStatisticType = {name: addName, abbreviation: addAbbreviation, quantity: addQuantity, unit: addUnit};
+        let newLocalChange: SettingsLocalChange = {operation: "Add", settingType: "ReadStatisticType", structure: newReadStatistic};
         readStatisticTypesLocalChangeLog = [...readStatisticTypesLocalChangeLog, newLocalChange];
         
         closeAddForm();
+        console.log(readStatisticTypesLocalChangeLog);
     }
 
     function revealAddForm(): void {
@@ -36,7 +37,7 @@
             readStatisticTypesLocalChangeLog = readStatisticTypesLocalChangeLog.filter(t => t.structure.name != name);
         }
         else {
-            let newLocalChange: SettingsLocalChange = new SettingsLocalChange("Delete","ReadStatisticType", name);
+            let newLocalChange: SettingsLocalChange = {operation: "Delete", settingType: "ReadStatisticType", structure: name};
             readStatisticTypesLocalChangeLog = [...readStatisticTypesLocalChangeLog, newLocalChange];
             readStatisticTypes = readStatisticTypes;
         }
@@ -107,6 +108,4 @@
         </table>
     </div>
     <p class="text-left text-xs">note: deleting a type will also delete all the data associated to it, be careful!</p>
-    
-    
 </div>
