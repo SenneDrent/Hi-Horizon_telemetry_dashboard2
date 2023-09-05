@@ -69,22 +69,22 @@
         <tbody>
             {#each readStatisticTypes as readStatisticType}
                 {#if checkIfLocalNotDeleted(readStatisticType.name) === true}
-                    <tr id={readStatisticType.name + "ReadStatisticRow"}>
-                        <td>{readStatisticType.name}</td>
-                        <td>{readStatisticType.abbreviation}</td>
-                        <td>{readStatisticType.quantity}</td>
-                        <td>{readStatisticType.unit}</td>
-                        <td><button on:click={()=>deleteRow(readStatisticType.name, true)} class="w-full rounded bg-red-600">x</button></td>
+                    <tr id={readStatisticType.name + "ReadStatisticRow"} class="">
+                        <td class="pb-1">{readStatisticType.name}</td>
+                        <td class="pb-1">{readStatisticType.abbreviation}</td>
+                        <td class="pb-1">{readStatisticType.quantity}</td>
+                        <td class="pb-1">{readStatisticType.unit}</td>
+                        <td class="pb-1 flex justify-center"><button on:click={()=>deleteRow(readStatisticType.name, true)} class="rounded bg-red-600 hover:bg-red-500 flex justify-center"><img src="../trashcanIcon.svg" alt="Delete"></button></td>
                     </tr>
                 {/if}
             {/each}
             {#each readStatisticTypesLocalChangeLog.filter(t => t.operation === "Add") as readStatisticType}
                     <tr id={readStatisticType.structure.name + "Row"}>
-                        <td>{readStatisticType.structure.name}</td>
-                        <td>{readStatisticType.structure.abbreviation}</td>
-                        <td>{readStatisticType.structure.quantity}</td>
-                        <td>{readStatisticType.structure.unit}</td>
-                        <td><button on:click={()=>deleteRow(readStatisticType.structure.name, false)} class="w-full rounded bg-red-600">x</button></td>
+                        <td class="pb-1">{readStatisticType.structure.name}</td>
+                        <td class="pb-1">{readStatisticType.structure.abbreviation}</td>
+                        <td class="pb-1">{readStatisticType.structure.quantity}</td>
+                        <td class="pb-1">{readStatisticType.structure.unit}</td>
+                        <td class="pb-1 flex justify-center"><button on:click={()=>deleteRow(readStatisticType.structure.name, false)} class="rounded bg-red-600 hover:bg-red-500 flex justify-center"><img src="../trashcanIcon.svg" alt="Delete"></button></td>
                     </tr>
             {/each}
             <tr>
@@ -100,7 +100,7 @@
                         <button on:click={()=>closeAddForm()} class="text-center">Cancel</button>
                     </td>
                 {:else}
-                    <td colspan=5><button on:click={()=>revealAddForm()} class="text-center w-full">+</button></td>
+                    <td colspan=5><button on:click={()=>revealAddForm()} class="text-center w-full hover:bg-stone-700 rounded flex justify-center py-1"><img src="../addCircleIcon.svg" alt="Add"></button></td>
                 {/if}
             </tr>
         </tbody>
