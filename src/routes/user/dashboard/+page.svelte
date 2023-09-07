@@ -22,9 +22,8 @@
     },1000);
 
     $: if ($timeSinceLastFrame > 20) statusColor = "text-red-600";
-    console.log(data.dataFrameStructure);
     function getFullNameFromAbbreviation(abbreviation:string) {
-       let statistic:any[] = data.dataFrameStructure.filter((t:any) => t.abbreviation !== abbreviation);
+       let statistic:any[] = data.dataFrameStructure.filter((t:any) => t.abbreviation === abbreviation);
        return statistic[0].name;
     }
 </script>

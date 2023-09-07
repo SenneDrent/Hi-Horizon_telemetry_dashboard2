@@ -70,17 +70,17 @@
         <tbody>
             {#each readStatisticTypes as readStatisticType}
                 {#if checkIfLocalNotDeleted(readStatisticType.name) === true}
-                    <tr id={readStatisticType.name + "ReadStatisticRow"} class="">
+                    <tr class="odd:bg-stone-700" id={readStatisticType.name + "ReadStatisticRow"}>
                         <td class="pb-1">{readStatisticType.name}</td>
                         <td class="pb-1">{readStatisticType.abbreviation}</td>
                         <td class="pb-1">{readStatisticType.quantity}</td>
                         <td class="pb-1">{readStatisticType.unit}</td>
-                        <td class="pb-1 flex justify-center"><button on:click={()=>deleteRow(readStatisticType.name, true)} class="rounded bg-red-600 hover:bg-red-500 flex justify-center"><img src="../trashcanIcon.svg" alt="Delete"></button></td>
+                        <td class="pb-1 flex justify-center"><button on:click={()=>deleteRow(readStatisticType.name, true)} class="rounded bg-red-600 hover:bg-red-500 flex justify-center"><img src="../icons/trashcan.svg" alt="Delete"></button></td>
                     </tr>
                 {/if}
             {/each}
             {#each readStatisticTypesLocalChangeLog.filter(t => t.operation === "Add") as readStatisticType}
-                    <tr id={readStatisticType.structure.name + "Row"}>
+                    <tr class="odd:bg-stone-700" id={readStatisticType.structure.name + "Row"}>
                         <td class="pb-1">{readStatisticType.structure.name}</td>
                         <td class="pb-1">{readStatisticType.structure.abbreviation}</td>
                         <td class="pb-1">{readStatisticType.structure.quantity}</td>
@@ -101,7 +101,7 @@
                         <button on:click={()=>closeAddForm()} class="text-center">Cancel</button>
                     </td>
                 {:else}
-                    <td colspan=5><button on:click={()=>revealAddForm()} class="text-center w-full hover:bg-stone-700 rounded flex justify-center py-1"><img src="../addCircleIcon.svg" alt="Add"></button></td>
+                    <td colspan=5><button on:click={()=>revealAddForm()} class="text-center w-full hover:bg-stone-600 rounded flex justify-center py-1"><img src="../icons/addCircle.svg" alt="Add"></button></td>
                 {/if}
             </tr>
         </tbody>
