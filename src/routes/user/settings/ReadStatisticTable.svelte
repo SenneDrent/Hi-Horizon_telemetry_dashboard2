@@ -85,7 +85,7 @@
                         <td class="pb-1">{readStatisticType.structure.abbreviation}</td>
                         <td class="pb-1">{readStatisticType.structure.quantity}</td>
                         <td class="pb-1">{readStatisticType.structure.unit}</td>
-                        <td class="pb-1 flex justify-center"><button on:click={()=>deleteRow(readStatisticType.structure.name, false)} class="rounded bg-red-600 hover:bg-red-500 flex justify-center"><img src="../trashcanIcon.svg" alt="Delete"></button></td>
+                        <td class="pb-1 flex justify-center"><button on:click={()=>deleteRow(readStatisticType.structure.name, false)} class="rounded bg-red-600 hover:bg-red-500 flex justify-center"><img src="../icons/trashcan.svg" alt="Delete"></button></td>
                     </tr>
             {/each}
             <tr>

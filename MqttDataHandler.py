@@ -22,7 +22,7 @@ def insertMapToDatabase(dataFrame):
         try:
             value = dataFrame[type[1]]
             valuesToInsert.append(value)
-            columnsToInsert.append(type[0])
+            columnsToInsert.append(type[1])
         except:
             print("error: " + type[1] + " is not inside the message")
     
@@ -51,7 +51,7 @@ def insertMapToDatabase(dataFrame):
     except:
         print("inserting in the database went wrong")
     
-    # print("insertion took " + str(time.time() - beginTime) + " seconds")
+    print("insertion took " + str(time.time() - beginTime) + " seconds")
 
 
 def on_connect(client, userdata, flags, rc, properties=None):

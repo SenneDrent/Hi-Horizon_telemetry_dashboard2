@@ -10,6 +10,9 @@ onMount(()=>{
 
 </script>
 
+<svelte:head>
+	<title>Login</title>
+</svelte:head>
 
 <div class="flex flex-col items-center justify-center h-screen">
     {#if showImage === true}

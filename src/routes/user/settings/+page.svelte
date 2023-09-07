@@ -38,6 +38,9 @@
     }
 </script>
 
+<svelte:head>
+	<title>Settings</title>
+</svelte:head>
 
 <div class="flex flex-col flex-grow">
     <div class="flex-grow">
