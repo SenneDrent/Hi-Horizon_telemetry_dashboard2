@@ -2,8 +2,10 @@
     import ReadStatisticTable from "./ReadStatisticTable.svelte";
     import { pageName } from "../../../stores";
     import type { SettingsLocalChange } from "$lib/interfaces/SettingsLocalChange";
+    import { setupPageDefault } from "$lib/setupPageDefault";
 
     export let data;
+    setupPageDefault();
     pageName.set("Settings");
 
     let readStatisticTypesLocalChangeLog: SettingsLocalChange[] = [];

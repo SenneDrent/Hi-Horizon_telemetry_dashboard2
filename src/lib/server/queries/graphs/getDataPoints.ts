@@ -1,9 +1,7 @@
 import { db } from "../dataBaseConnection";
 
-export function getAllDataPointsFromAxes(x:FormDataEntryValue | null, y:FormDataEntryValue | null) {
+export function getAllDataPointsFromAxes(x:string, y:string): any[] {
     try {
-        console.log(x)
-        console.log(y)
         const stmt = db.prepare("SELECT "+ x +","+ y +" FROM Data");
         const result = stmt.all();
 
@@ -11,6 +9,6 @@ export function getAllDataPointsFromAxes(x:FormDataEntryValue | null, y:FormData
     } 
     catch (error) {
         console.log(error)
-        return undefined;
+        return [];
     }
 }

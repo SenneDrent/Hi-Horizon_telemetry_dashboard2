@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { pageName } from "../../stores";
+    import { pageName, showBackButton } from "../../stores";
     
     let currentPageName: string = "Page";
 
@@ -16,7 +16,12 @@
     <li class="justify-self-end"><form method="POST" action="?/logout"><button formaction="..?/logout"><img src="/icons/logout.svg" alt="Logout" class="hover:bg-stone-700 rounded"></button></form></li>
 </ul>
 <div class="p-5 w-full flex flex-col">
-<h1 class="text-center font-bold text-2xl pb-5">{currentPageName}</h1>
+<div class="flex pb-5 justify-center">
+{#if $showBackButton === true}
+<a href="./" on:click={()=>showBackButton.set(false)} class="hover:bg-stone-600 rounded text-center p-3 justify-self-start"><img src="/icons/arrowBack.svg" alt="Go Back"></a>
+{/if}
+<h1 class="text-center font-bold text-2xl self-center justify-self-center flex-grow">{currentPageName}</h1>
+</div>
 <slot></slot>
 </div>
 </div>

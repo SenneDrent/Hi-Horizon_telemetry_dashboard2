@@ -2,7 +2,9 @@
 import { io } from "socket.io-client"
 import { pageName } from "../../../stores";
 import { writable, type Writable } from "svelte/store";
+    import { setupPageDefault } from "$lib/setupPageDefault";
 
+setupPageDefault();
 pageName.set("Dashboard");
 export let data;
 let dataFrameStructure: any[] = data.dataFrameStructure;

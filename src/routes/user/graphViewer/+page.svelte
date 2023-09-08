@@ -1,7 +1,9 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
+    import { setupPageDefault } from "$lib/setupPageDefault";
 import { pageName } from "../../../stores";
 
+setupPageDefault();
 pageName.set("Graphs");
 </script>
 
