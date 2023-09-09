@@ -20,6 +20,9 @@ let chartCanvas: any;
 let ctx: any;
 let chart:any
 
+let dataURL: string;
+let downloadLinkDOM: any;
+
 onMount(() => {
 		  ctx = chartCanvas.getContext('2d');
 			chart = new Chart(ctx, {
@@ -52,7 +55,7 @@ onMount(() => {
                     }
                 }
 		});
-
+        fetchGraphDataPoints();
 });
 
 async function displayNewGraph(x:any, y:any) {
@@ -65,13 +68,19 @@ async function displayNewGraph(x:any, y:any) {
 }
 
 async function fetchGraphDataPoints() {
-    const response = await fetch('./REST?x='+xAxesOption+"&y="+yAxesOption);
+    const response = await fetch('./getGraphAPI?x='+xAxesOption+"&y="+yAxesOption);
     const message = await response.json();
 
     displayNewGraph(message.x, message.y);
 }
 
-$:console.log(chart)
+async function downloadDataRange() {
+    const response = await fetch('./getAllColumnsAPI');
+    const message = await response.json();
+    dataURL = message.table;
+    downloadLinkDOM.href = dataURL
+    downloadLinkDOM.click();
+}
 </script>
 
 <svelte:head>
@@ -103,6 +112,10 @@ $:console.log(chart)
                 <option value="bar">Bar</option>
             </select>
             <button on:click={()=>fetchGraphDataPoints()} class="bg-stone-700 hover:bg-stone-600 rounded p-2">View</button>
+            <button on:click={()=>downloadDataRange()} class="bg-green-700 hover:bg-green-600 rounded p-2 flex justify-center">
+                <img src="/icons/download.svg" alt="download" class="self-start">
+                <p>Save to .CSV</p>
+            </button>
         <!-- </form> -->
         </div>
         <div class="flex-grow rounded-xl h-full bg-stone-800">
@@ -110,3 +123,5 @@ $:console.log(chart)
         </div>
     </div>
 </div>
+
+<a download={data.graphName} bind:this={downloadLinkDOM} hidden>download</a>
