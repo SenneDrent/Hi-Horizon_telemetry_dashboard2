@@ -13,5 +13,5 @@ export function GET({url}) {
         yData.points.push(row[y]);
     })
     
-	return json({x: xData, y: yData});
+	return json({x: xData, y: yData, otherFormat: rawData});
 }

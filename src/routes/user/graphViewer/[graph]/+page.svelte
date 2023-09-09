@@ -4,7 +4,8 @@ import { pageName, showBackButton } from "../../../../stores";
 import type { ActionData, PageData } from "./$types";
 import { onMount } from 'svelte';
 import { setupPageDefault } from '$lib/setupPageDefault';
-import 'chartjs-adapter-dayjs-4/dist/chartjs-adapter-dayjs-4.esm';
+import 'chartjs-adapter-luxon';
+    import { chartConfig, linearScaleConfig, timeScaleConfig } from './chartConfig';
 
 export let data: PageData;
 
@@ -23,54 +24,43 @@ let chart:any
 let dataURL: string;
 let downloadLinkDOM: any;
 
+let points = [
+    {x: 0, y: 0},
+    {x: 5, y: 10},
+    {x: 10, y: 20},
+    {x: 15, y: 30},
+    {x: 20, y: 40}
+];
+
 onMount(() => {
-		  ctx = chartCanvas.getContext('2d');
-			chart = new Chart(ctx, {
-				type: 'line',
-				data: {
-						labels: [],
-						datasets: [{
-								label: "none",
-								backgroundColor: 'rgb(255, 99, 132)',
-								borderColor: 'rgb(255, 99, 132)',
-								data: []
-						}]
-				},
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: {
-                            title: {
-                                display: true,
-                                text: "none"
-                            },
-                        },
-                        y: {
-                            title: {
-                                display: true,
-                                text: "none"
-                            }
-                        }
-                    }
-                }
-		});
-        fetchGraphDataPoints();
+    ctx = chartCanvas.getContext('2d');
+    chart = new Chart(ctx, chartConfig);
+    fetchGraphDataPoints();
 });
 
+
+
 async function displayNewGraph(x:any, y:any) {
-    chart.type = GraphType;
-    chart.options.scales.x.title.text = x.name;
-    chart.data.labels = x.points
-    chart.options.scales.y.title.text = y.name;
-    chart.data.datasets[0].data = y.points
-    chart.update();
+    chartConfig.type = GraphType;
+    let xDate = x.points.map((o:any) => o *= 1000);
+    if (x.name === "UnixTime") chartConfig.options.scales.x = timeScaleConfig
+    else chartConfig.options.scales.x = linearScaleConfig
+    if (y.name === "UnixTime") chartConfig.options.scales.y = timeScaleConfig
+    else chartConfig.options.scales.y = linearScaleConfig
+
+    chartConfig.options.scales.x.title.text = x.name;
+    chartConfig.data.labels = xDate
+    chartConfig.options.scales.y.title.text = y.name;
+    chartConfig.data.datasets[0].data = y.points;
+    console.log(chartConfig);
+    chart.destroy();
+    chart = new Chart(ctx, chartConfig);
 }
 
 async function fetchGraphDataPoints() {
     const response = await fetch('./getGraphAPI?x='+xAxesOption+"&y="+yAxesOption);
     const message = await response.json();
-
+    points = message.otherFormat;
     displayNewGraph(message.x, message.y);
 }
 
