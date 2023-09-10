@@ -1,7 +1,7 @@
 import { getDataTableWithRange } from "$lib/server/queries/graphs/getDataPoints";
 import { json } from "@sveltejs/kit";
 
-export function GET({url}) {
+export function GET() {
     let table: any[][] = getDataTableWithRange();
     let rawString:string = '';
     for (const row of table) {

@@ -2,7 +2,7 @@
     import type { ReadStatisticType } from "$lib/interfaces/ReadStatisticType";
     import type { SettingsLocalChange } from "$lib/interfaces/SettingsLocalChange";
 
-    export let readStatisticTypes: any = [];
+    export let readStatisticTypes: ReadStatisticType[] = [];
     export let readStatisticTypesLocalChangeLog: SettingsLocalChange[] = [];
 
     let wantsToAdd: boolean = false;

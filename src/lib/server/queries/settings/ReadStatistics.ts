@@ -13,11 +13,16 @@ export function parseOperationReadStatistic(change: SettingsLocalChange) {
     }
 }
 
-export async function fetchReadStatisticsTypes() {
+export async function fetchReadStatisticsTypes(): Promise<ReadStatisticType[]> {
     const stmt = db.prepare("SELECT * FROM ReadStatisticTypes");
-    const result = stmt.all();
+    const rawResult:any[] = stmt.raw().all();
 
-    return result;
+    const processedResult: ReadStatisticType[] = [];
+    rawResult.forEach((item:string[]) => {
+        let newReadStatisticType: ReadStatisticType = {name: item[0], abbreviation: item[1], quantity: item[2], unit: item[3]}
+        processedResult.push(newReadStatisticType);
+    });
+    return processedResult;
 }
 
 export function addReadStatisticsType(newRow:ReadStatisticType)  {

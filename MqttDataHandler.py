@@ -56,6 +56,7 @@ def insertMapToDatabase(dataFrame):
 
 def on_connect(client, userdata, flags, rc, properties=None):
     print("CONNACK received with code %s." % rc)
+    client.subscribe("data")
 
 # with this callback you can see if your publish was successful
 def on_publish(client, userdata, mid, properties=None):
@@ -79,7 +80,7 @@ def on_message(client, userdata, msg):
 # using MQTT version 5 here, for 3.1.1: MQTTv311, 3.1: MQTTv31
 # userdata is user defined data of any type, updated by user_data_set()
 # client_id is the given name of the client
-client = paho.Client(client_id="", userdata=None, protocol=paho.MQTTv5)
+client = paho.Client(client_id="Website-Listener", userdata=None, protocol=paho.MQTTv5)
 client.on_connect = on_connect
 
 # enable TLS for secure connection
@@ -95,6 +96,5 @@ client.on_message = on_message
 client.on_publish = on_publish
 
 # subscribe to all topics of encyclopedia by using the wildcard "#"
-client.subscribe("data")
 
 client.loop_forever()
