@@ -40,7 +40,7 @@ $: {
     <div class="rounded border-separate bg-stone-800 flex-1">
     {#each dataFrameStructure as readStatistic, index}
         {#if readStatistic.name !== "UnixTime"}
-            {#if index <= (dataFrameStructure.length/2)}
+            {#if index < (dataFrameStructure.length/2)}
                 <div class="even:bg-stone-700 p-3 last:rounded-b">
                     <p class="font-bold">{readStatistic.name}</p>
                     <div class="flex flex-row items-end space-x-1">
@@ -72,7 +72,7 @@ $: {
     {/if}
     </div>
     </div>
-    <div class="p-3 rounded bg-stone-800">
+    <div class="p-3 rounded bg-stone-800 self-start w-fit">
         <div class="font-bold">Status</div>
         <div class="{statusColor}">time since last Frame: {$timeSinceLastFrame}s</div>
     </div>
